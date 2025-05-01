@@ -1,0 +1,176 @@
+.c-section-about {
+
+    .c-section-about__title {
+        font-size: 4rem;
+        margin-top: 3rem;
+        font-weight: 900;
+        transform: translateX(5%);
+        opacity: 0;
+        transition: .4s ease-out .0s;
+
+        &._active {
+            opacity: 1;
+            transform: translateX(0);
+
+        }
+
+        @include breakpoint($aboutBreakpoint) {
+            font-size: 3rem;
+        }
+
+        @include breakpoint($thirdBreakpoint) {
+            font-size: 2rem;
+        }
+    }
+
+    .c-section-about-items {
+        margin-top: 9rem;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        @include breakpoint($aboutBreakpoint) {
+            margin-top: 5rem;
+            padding-left: 10%;
+            justify-content: center;
+
+
+        }
+
+        .c-section-about-items__inner {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+
+            @include breakpoint($thirdBreakpoint) {
+                min-width: 28rem;
+
+            }
+
+            @include breakpoint($aboutBreakpoint) {
+                min-width: 40rem;
+
+
+            }
+
+
+            &._active {
+                .c-section-about-items__inner-logo {
+
+                    opacity: 1;
+                    transform: scale(1);
+                                    transform:rotate(0);
+
+                }
+
+                .c-section-about-items__inner-txt {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+
+
+            }
+
+            .c-section-about-items__inner-logo {
+                width: 9rem;
+                height: 9rem;
+                position: relative;
+                background: rgba(254, 204, 203, 0.8);
+                border-radius: 2rem;
+                transform: scale(.7);
+                opacity: 0;
+                transition: .4s ease-out .2s;
+                transform:rotate(-120deg);
+                img {
+                    position: absolute;
+                    right: 18%;
+                    top: 25%;
+
+                    @include breakpoint($thirdBreakpoint) {
+                        width: 2.4rem;
+                        height: auto;
+                        top: 20%;
+                        right: 20%;
+                    }
+                }
+
+                @include breakpoint($thirdBreakpoint) {
+                    width: 4.4rem;
+                    height: 4.4rem;
+                    border-radius: .8rem;
+                }
+            }
+
+            .c-section-about-items__inner-txt {
+                margin-left: 2rem;
+                max-width: 22rem;
+                transform: translateX(5%);
+                opacity: 0;
+                transition: .4s ease-out .4s;
+
+                .c-section-about-items__inner-title {
+                    font-weight: 900;
+                    font-size: 1.5rem;
+
+
+                    @include breakpoint($thirdBreakpoint) {
+                        font-size: 1rem;
+                        line-height: 1.2rem;
+                    }
+                }
+
+                .c-section-about-items__inner-subtitle {
+
+                    font-weight: normal;
+                    font-size: 1rem;
+                    line-height: 12px;
+                    letter-spacing: 0.02em;
+                    margin-top: .8rem;
+
+                    @include breakpoint($thirdBreakpoint) {
+                        margin-top: .3rem;
+
+                        font-size: .7rem;
+                        line-height: .9rem;
+                        max-width: 18rem;
+                    }
+                }
+
+            }
+
+            &.c-radio-waves {
+
+                .c-section-about-items__inner-txt {
+                    max-width: 26rem;
+                }
+
+                .c-section-about-items__inner-logo {
+                    background: rgba(247, 248, 208, 0.8);
+
+                    img {
+                        right: 21%;
+
+                    }
+                }
+
+            }
+
+            &.c-microphone {
+                .c-section-about-items__inner-txt {
+                    max-width: 24rem;
+                }
+
+                .c-section-about-items__inner-logo {
+                    background: rgba(242, 228, 244, 0.8);
+
+                    img {
+                        right: 23%;
+
+                    }
+                }
+            }
+        }
+
+        ;
+    }
+}

@@ -1,0 +1,48 @@
+.c-section-programm {
+    width: 100%;
+    height: auto;
+    background: $light-fon;
+    margin-top: 10rem;
+    padding-top: 7.5rem;
+
+    &._active {
+        .c-section-programm__title {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+
+    }
+
+}
+
+.c-section-programm__title {
+    font-weight: 900;
+    font-size: 40px;
+    opacity: 0;
+    transition: .4s ease-out .2s;
+    transform: translateX(5%);
+
+    @include breakpoint($aboutBreakpoint) {
+        font-size: 3rem;
+    }
+
+    @include breakpoint($thirdBreakpoint) {
+        font-size: 2rem;
+    }
+}
+
+.c-section-programm_card {
+    padding: 4rem 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+
+    @include breakpoint($programmBreakpointFirrst) {
+        justify-content: center;
+    }
+
+
+
+}

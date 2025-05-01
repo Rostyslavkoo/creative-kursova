@@ -1,0 +1,222 @@
+.c-intro {
+    height: 95vh;
+    background: linear-gradient(125.46deg, #C6E2C3 11.19%, #9FC69B 89.3%);
+    position: relative;
+    min-height: 62rem;
+    max-height: 120rem;
+
+    .c-intro-offer {
+        position: absolute;
+        margin-top: 25rem;
+        max-width: 60rem;
+        height: 35rem;
+        padding: 1rem 6rem 1rem 0rem;
+        z-index: 10;
+
+        .c-intro-offer__bg-img {
+            position: absolute;
+            z-index: -1;
+            left: -5rem;
+            transform: scale(.7);
+            opacity: 0;
+            transition: .4s ease-out .1s;
+
+            &._active {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            @include breakpoint($firstBreakpointContainer) {
+                left: -1rem;
+            }
+
+            @include breakpoint($secondBreakpoint) {
+                display: none;
+            }
+        }
+
+        .c-intro-offer__sm-img {
+            display: none;
+            transform: scale(.7);
+            opacity: 0;
+            transition: .4s ease-out .1s;
+
+            &._active {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            @include breakpoint($secondBreakpoint) {
+                display: block;
+                position: absolute;
+                z-index: -1;
+                left: 1rem;
+            }
+
+            @include breakpoint($thirdBreakpoint) {
+                top: 0;
+                left: -2rem;
+            }
+
+        }
+
+        .c-intro-offer__title {
+            color: #000000;
+            font-weight: 900;
+            font-size: 4rem;
+            line-height: 5.6rem;
+            transform: scale(1.2);
+            opacity: 0;
+            transition: .4s ease-out 0s;
+
+            @include breakpoint($secondBreakpoint) {
+                line-height: 4rem;
+                font-size: 3rem;
+                max-width: 40rem;
+            }
+
+            @include breakpoint($thirdBreakpoint) {
+                font-size: 2rem;
+                line-height: 25px;
+                max-width: 24rem;
+            }
+
+            &._active {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .c-intro-offer__subtitle {
+            margin-top: 2.5rem;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 2.5rem;
+            line-height: 3rem;
+            letter-spacing: 0.02em;
+            transform: translateY(20%);
+            opacity: 0;
+            transition: .4s ease-out .2s;
+
+            b {
+                font-weight: bold;
+                font-size: 2.5rem;
+            }
+
+            @include breakpoint($secondBreakpoint) {
+                margin-top: 1.6rem;
+                line-height: 2.5rem;
+                font-size: 2rem;
+                max-width: 40rem;
+
+            }
+
+            @include breakpoint($thirdBreakpoint) {
+                font-size: 1.4rem;
+                max-width: 237px;
+
+                b {
+                    font-weight: bold;
+                    font-size: 1.5rem;
+                }
+            }
+
+            &._active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .c-intro-offer__btn {
+            transform: translate(10%, 10%);
+            opacity: 0;
+            transition: .4s ease-out .2s;
+
+            &._active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .c-gradient-btn {
+                margin-top: 5.7rem;
+
+                @include breakpoint($secondBreakpoint) {
+                    margin-top: 4.4rem;
+                    width: 25rem;
+                    height: 6rem;
+                    border-radius: 1rem;
+                }
+
+                @include breakpoint($thirdBreakpoint) {
+                    margin-top: 4.4rem;
+                    width: 19rem;
+                    height: 5rem;
+                }
+
+                p {
+                    @include breakpoint($secondBreakpoint) {
+                        font-size: 1.8rem;
+                    }
+
+                    @include breakpoint($thirdBreakpoint) {
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+        }
+
+
+
+
+        @include breakpoint($thirdBreakpoint) {
+            margin-top: 20rem;
+        }
+
+        // @include breakpoint($Breakpoint) {
+        //        height: 100vh;
+        //    }
+    }
+
+    .c-intro-image {
+
+
+        img {
+            position: absolute;
+            right: 0;
+            // top: -4.4rem;
+            max-height: 80rem;
+            height: 95vh;
+            height: 90%;
+            bottom: 0;
+            overflow: hidden;
+            transform: scale(1.5);
+            transform: translate(5%,5%);
+            opacity: 0;
+            transition: .4s ease-out .2s;
+
+            &._active {
+                opacity: 1;
+                transform: scale(1);
+                transform: translate(0,0), ;
+            }
+
+            @include breakpoint($firstBreakpoint) {
+                max-height: 70rem;
+                height: 100%;
+                height: 60vh;
+
+            }
+
+            @include breakpoint($secondBreakpoint) {
+                right: -5rem;
+                max-height: 40rem;
+            }
+
+            @include breakpoint($thirdBreakpoint) {
+                max-height: 30rem;
+            }
+        }
+    }
+
+
+}

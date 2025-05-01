@@ -1,0 +1,168 @@
+.c-modal-programme {
+
+    .c-modal {
+
+        .c-modal__content {
+            max-width: 110rem;
+
+            .c-modal-content__title {
+                font-weight: 900;
+                font-size: 4rem;
+                line-height: 56px;
+                /* identical to box height, or 140% */
+
+                text-align: center;
+
+                color: #000000;
+                margin-bottom: 3rem;
+
+                @include breakpoint($modalBreakpointOfllineF) {
+                    font-size: 3rem;
+                    margin: 1rem 0;
+                }
+
+                @include breakpoint($modalBreakpointOfllineS) {
+                    font-size: 2rem;
+                    margin: 0 1rem;
+                    line-height: 2rem;
+                    margin: 2rem;
+                }
+            }
+
+            .c-modal-programme__card {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+
+                .c-card-btn {
+                    max-width: 26rem;
+                    margin: 2rem;
+
+                    @include breakpoint($modalBreakpointOfllineF) {
+                        max-width: 16rem;
+                        height: 10rem;
+
+                        // @include breakpoint($modalBreakpointOfllineS) {
+                        //     max-width: 80%;
+                        //     height: 15rem;
+                        //     padding: 1rem;
+                        //     margin: 0;
+                        //     margin-bottom: 1rem;
+
+                        // }
+
+
+                        @include breakpoint($modalBreakpointOfllineS) {
+                            width: 20rem;
+                            height:10rem;
+                            margin: 0;
+                            margin-bottom: 2rem;
+
+                        }
+
+                    }
+
+                    .c-card-btn__inner {
+                        position: relative;
+
+                        &::after {
+                            @include breakpoint($modalBreakpointOfllineF) {
+                                border-radius: 1rem;
+
+                            }
+
+                            @include breakpoint($modalBreakpointOfllineS) {
+                                border-radius: 2rem;
+
+                            }
+
+                        }
+
+                        @include breakpoint($modalBreakpointOfllineF) {
+                            border-radius: 1rem;
+                            box-shadow: 0px 2px 5px 2px #F36783;
+
+                        }
+
+                        @include breakpoint($modalBreakpointOfllineS) {
+                            border-radius: 2rem;
+
+                        }
+
+                        .c-card-btn__title {
+                            font-weight: bold;
+                            font-size: 2rem;
+                            line-height: 2.5rem;
+                            color: #fff;
+                            text-align: center;
+                            padding: 0 5rem;
+
+                            @include breakpoint($modalBreakpointOfllineF) {
+                                font-size: 1rem;
+                                line-height: 1rem;
+
+                            }
+
+                        }
+
+                        .c-card-btn__age {
+                            z-index: 100;
+                            color: #fff;
+                            position: absolute;
+                            left: 10%;
+                            bottom: 10%;
+
+
+                        }
+
+                        .c-card-btn__arrow {
+                            z-index: 100;
+                            position: absolute;
+                            right: 10%;
+                            bottom: 10%;
+
+
+                        }
+
+                    }
+
+                    &.online {
+                        .c-card-btn__inner {
+
+
+                            @include breakpoint($modalBreakpointOfllineF) {
+                                border-radius: 1rem;
+                                box-shadow: 0px 2px 5px 2px #BAD9B6;
+
+                            }
+                             @include breakpoint($modalBreakpointOfllineS) {
+                            border-radius: 2rem;
+
+                        }
+                        }
+
+                    }
+
+                }
+
+            }
+
+            @include breakpoint($modalBreakpointOflline) {
+                max-width: 80rem;
+            }
+
+            @include breakpoint($modalBreakpointOfllineF) {
+                max-width: 50rem;
+                padding: 1rem;
+            }
+
+            @include breakpoint($modalBreakpointOfllineS) {
+                max-width: 30rem;
+                padding: 1rem;
+                margin-top: 8rem;
+                margin-bottom: 1rem;
+                border-radius: 1rem;
+            }
+        }
+    }
+}

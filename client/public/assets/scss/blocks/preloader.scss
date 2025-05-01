@@ -1,0 +1,83 @@
+.c-preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 9999;
+    background-image: url('../img/prelod.webp');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .c-preloader__wrapper {
+        width: auto;
+        height: auto;
+        position: relative;
+
+        .c-hide-preloader & {
+            transition: .3s linear;
+            transform: scale(0.3);
+            opacity: 0;
+        }
+    }
+
+    .c-preloader__content,
+    .c-text-cursor {
+
+        font-weight: 900;
+        font-size: 3.3rem;
+        letter-spacing: 0.21em;
+        background: linear-gradient(282.41deg, #F46362 49.38%, #F26788 89.69%);
+        width: 25rem;
+        color: #F46362;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        opacity: 1;
+        transition: opacity .3s linear;
+        transform: scale(1);
+
+        @include breakpoint($thirdBreakpoint) {
+            font-size: 2.3rem;
+            letter-spacing: 0.21em;
+             width: 18rem;
+        }
+
+    }
+
+    .c-hide-preloader & {
+        opacity: 0;
+        transition: .3s linear;
+
+    }
+
+    .c-preloader-hidden & {
+        display: none;
+        visibility: hidden;
+
+    }
+}
+
+.c-text-cursor {
+    top: 0;
+    left: 25rem;
+    position: absolute;
+    visibility: hidden;
+    animation: textCursor 500ms steps(40) infinite normal;
+      @include breakpoint($thirdBreakpoint) {
+           left: 18rem;
+        }
+    &.active-cursor {
+        visibility: visible;
+    }
+}
+
+@keyframes textCursor {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

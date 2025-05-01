@@ -1,0 +1,17 @@
+.c-container {
+    max-width: 116.8rem;
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+
+    @include breakpoint($firstBreakpointContainer) {
+        padding: 0 2rem;
+    }
+
+    @include breakpoint($thirdBreakpoint) {
+        padding: 0 3.8rem;
+    }
+
+
+    // border:1px solid red;
+}

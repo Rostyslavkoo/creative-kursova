@@ -1,0 +1,104 @@
+@import "_vars";
+@import "_mixins";
+@import "vendor/reset";
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+
+
+}
+
+body {
+    background-color: #fff;
+    font-family: $primary-font;
+    font-weight: 900;
+
+    &.no-scroll {
+        overflow: hidden;
+    }
+
+    &.active-burger {
+        overflow: hidden;
+        
+    }
+
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box
+}
+
+img::selection {
+    background: transparent;
+    pointer-events: none;
+
+}
+
+
+.c-unselectable {
+
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none
+}
+
+.c-noselect {
+
+
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+// include scss files
+@import "blocks/main";
+@import "blocks/preloader";
+@import "blocks/header.scss";
+@import "blocks/nav.scss";
+@import "blocks/intro";
+@import "blocks/gradient-btn";
+@import "blocks/section";
+@import "blocks/slider";
+@import "blocks/card-sm";
+@import "blocks/about";
+@import "blocks/programm";
+@import "blocks/card-md";
+@import "blocks/gallery";
+@import "blocks/sign-block";
+@import "blocks/review";
+@import "blocks/review-card";
+@import "blocks/question";
+@import "blocks/inputs";
+@import "blocks/textarea";
+@import "blocks/checkbox";
+@import "blocks/map";
+@import "blocks/footer";
+@import "blocks/modal";
+@import "blocks/card-btn";
+@import "blocks/modal-format";
+@import "blocks/modal-programme-offline";
+@import "blocks/modal-describe";
+@import "blocks/swiper";
+@import "blocks/lightgallery";
+@import "blocks/sidebar";
+@import "blocks/cursor";
+
+
+

@@ -1,0 +1,112 @@
+.c-wrapper {
+    overflow: hidden;
+
+    .preloader-active & {
+        visibility: hidden;
+        transition: 5s;
+    }
+
+}
+
+
+.c-section-swiper {
+    position: relative;
+    max-width: 58rem;
+    width: 100%;
+    height: 26rem;
+    top: -10rem;
+    display: flex;
+    justify-content: space-between;
+    min-width: 0;
+
+    .c-section-swiper-wrapper {
+        max-width: 58rem;
+        padding-left: .7rem;
+    
+
+        @include breakpoint($sliderFirst) {
+            max-width: 25rem;
+        }
+    }
+
+    @include breakpoint($sliderFirst) {
+        max-width: 25rem;
+        left: -1rem;
+    }
+
+    @include breakpoint($secondBreakpoint) {
+        max-width: 14rem;
+        top: -7rem;
+        height: 16rem;
+
+    }
+
+    @media (max-height: 768px) and (max-width: 1024px) {
+        top: 2rem;
+    }
+
+
+}
+
+.c-section {
+    position: relative;
+
+
+
+    .swiper-item {
+        // max-width: 27rem;
+        display: flex;
+        justify-content: space-between;
+
+    }
+
+
+
+    .swiper-scrollbar {
+        transform: scale(.9);
+        max-width: 30rem;
+        height: 0.8rem !important;
+        // position: absolute;
+        left: 32% !important;
+
+        .swiper-scrollbar-drag {
+            background: rgba(173, 172, 172, 1);
+            border-radius: .9rem;
+            width: 100%;
+            max-width: 6.6rem;
+            height: 1.5rem;
+            top: -.4rem;
+            cursor: grab;
+            transition: .1s ease-out;
+            transform: scale(.7);
+
+            @include breakpoint($secondBreakpoint) {
+                max-width: 100rem;
+                height: .8rem !important;
+                top: -.3rem;
+            }
+        }
+
+        &:hover {
+            transition: .5s ease-out;
+            opacity: 1;
+
+            &.swiper-scrollbar-drag {
+                transition: .2s ease-out;
+                transform: scale(1);
+
+            }
+        }
+
+        @include breakpoint($sliderFirst) {
+            max-width: 20rem;
+            left: 3rem !important;
+        }
+
+        @include breakpoint($secondBreakpoint) {
+            left: 1rem !important;
+            max-width: 10rem;
+            height: .3rem !important;
+        }
+    }
+}

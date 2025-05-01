@@ -1,0 +1,285 @@
+.c-modal-detail {
+
+    .c-modal {
+
+        .c-modal__content {
+            max-width: 73rem;
+            width: 100%;
+            padding: 6rem 5.8rem 3rem 5.8rem;
+
+            @include breakpoint($modalBreakpointOfllineT) {
+                max-width: 53rem;
+                margin-top: 2rem;
+                padding: 4rem;
+                border-radius: 2rem;
+            }
+
+            @include breakpoint($modalBreakpointOfllineFo) {
+
+                padding: 3rem;
+
+            }
+
+            .c-modal-content__title {
+                font-style: normal;
+                font-weight: 900;
+                font-size: 2.3rem;
+                text-align: start;
+
+                @include breakpoint($modalBreakpointOfllineT) {
+                    font-size: 2rem;
+                    line-height: 2.2rem;
+
+                }
+
+                @include breakpoint($modalBreakpointOfllineFo) {
+                    font-size: 1.5rem;
+                    line-height: 1.8rem;
+
+                }
+            }
+
+            .c-modal-detail__inner {
+                margin-top: 4rem;
+
+                @include breakpoint($modalBreakpointOfllineT) {
+                    margin-top: 2rem;
+
+                }
+
+                .c-modal-detail-inner__check {
+                    display: flex;
+
+                    margin-bottom: 2rem;
+
+                    @include breakpoint($modalBreakpointOfllineT) {
+                        margin-bottom: 1rem;
+                    }
+
+                    .c-modal-detail-inner-check__dot {
+                        height: 1.5rem;
+                        width: 1.5rem;
+                        padding: 0;
+                        margin: 0;
+                        top: 0;
+                        left: 0;
+                        border-radius: .8rem;
+                        margin-right: 1rem;
+                        background: linear-gradient(282.41deg, #F46362 49.38%, #F26788 89.69%);
+                        box-shadow: 0px 0px 2px 1px #F46362;
+
+                        @include breakpoint($modalBreakpointOfllineT) {
+                            height: 1rem;
+                            width: 1rem;
+                        }
+                    }
+
+                    .c-modal-detail-inner-check__info {
+
+                        .c-modal-detail-inner-check-info__title {
+                            font-weight: bold;
+                            font-size: 1.6rem;
+                            line-height: initial;
+
+                            @include breakpoint($modalBreakpointOfllineT) {
+                                font-size: 1rem;
+                                line-height: 1rem;
+                            }
+
+                        }
+
+                        .c-modal-detail-inner-check-info__sub {
+                            max-width: 25rem;
+                            width: 100%;
+                            font-weight: normal;
+                            font-size: 1.2rem;
+                            line-height: initial;
+
+                            @include breakpoint($modalBreakpointOfllineT) {
+                                font-size: .9rem;
+                                margin-top: 0.5rem;
+                                max-width: 19rem;
+
+                            }
+                        }
+                    }
+                }
+
+                .c-modal-detail-inner__advantage {
+                    margin-top: 2rem;
+
+                    @include breakpoint($modalBreakpointOfllineT) {
+                        margin-top: 1rem;
+
+                    }
+
+                    .c-modal-detail-inner__advantage__title {
+                        font-style: normal;
+                        font-weight: 900;
+                        font-size: 2rem;
+
+                        @include breakpoint($modalBreakpointOfllineT) {
+                            font-size: 1.8rem;
+
+                        }
+
+                        @include breakpoint($modalBreakpointOfllineFo) {
+                            font-size: 1.2rem;
+                            line-height: 2.2rem;
+
+                        }
+                    }
+
+                    .c-modal-detail-inner__advantage__sub {
+                        margin-top: 2rem;
+                        font-weight: 300;
+                        font-size: 1.3rem;
+                        line-height: 2rem;
+                        text-align: center;
+
+                        @include breakpoint($modalBreakpointOfllineT) {
+                            margin-top: 1rem;
+                            font-size: 1rem;
+                            line-height: 1.6rem;
+
+                        }
+
+                        @include breakpoint($modalBreakpointOfllineFo) {
+                            font-size: .8rem;
+
+
+                        }
+
+                        @include breakpoint($modalBreakpointOfllineFo) {
+                            font-size: 1rem;
+
+                        }
+                    }
+                }
+
+                .c-modal-detail-inner__time {
+                    margin-top: 3rem;
+                    display: flex;
+                    align-items: center;
+
+                    @include breakpoint($modalBreakpointOfllineT) {
+                        margin-top: 2rem;
+
+                    }
+
+                    .c-modal-detail-inner-time__title {
+                        font-weight: bold;
+                        font-size: 1.7rem;
+
+                        @include breakpoint($modalBreakpointOfllineT) {
+                            font-size: 1.2rem;
+
+                        }
+
+                        @include breakpoint($modalBreakpointOfllineFo) {
+                            font-size: 1rem;
+
+
+                        }
+                    }
+
+                    .c-modal-detail-inner-time__sub {
+                        font-weight: 900;
+                        font-size: 22px;
+                        background: linear-gradient(282.41deg, #F46362 49.38%, #F26788 89.69%);
+                        color: #F46362;
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        margin-left: 2rem;
+
+                        @include breakpoint($modalBreakpointOfllineT) {
+                            font-size: 1.5rem;
+
+                        }  @include breakpoint($modalBreakpointOfllineFo) {
+                            margin-left: 1rem;
+
+                        }
+                    }
+                }
+
+                .c-modal-detail-inner__footer {
+
+                    margin-top: 6.7rem;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    @include breakpoint($modalBreakpointOfllineT) {
+                        margin-top: 2.7rem;
+
+                    }
+
+                    .c-modal-detail-inner-footer__txt {
+                        font-weight: normal;
+                        font-size: 1.5rem;
+
+                        @include breakpoint($modalBreakpointOfllineT) {
+                            font-size: 1.2rem;
+
+                        }
+
+                        @include breakpoint($modalBreakpointOfllineFo) {
+                            font-size: 1rem;
+                            line-height: 1.5rem;
+
+                        }
+
+
+                    }
+
+                    .c-modal-detail-inner-footer__btn {
+
+                        .c-gradient-btn {
+                            width: 22rem;
+                            height: 5.5rem;
+                            border-radius: 1rem;
+
+                            @include breakpoint($modalBreakpointOfllineT) {
+                                width: 15rem;
+                                height: 3.5rem;
+                                border-radius: .8rem;
+
+
+                            }
+
+                            @include breakpoint($modalBreakpointOfllineFo) {
+                                width: 11rem;
+                                 height: 3rem;
+
+                            }
+
+                            .c-gradient-btn__txt {
+                                font-size: 1.5rem;
+                                font-weight: bold;
+
+                                @include breakpoint($modalBreakpointOfllineT) {
+                                    font-size: 1rem;
+
+
+                                }
+
+                                @include breakpoint($modalBreakpointOfllineFo) {
+                                    font-size: .8rem;
+
+
+                                }
+                            }
+
+                            &::after {
+
+                                box-shadow: 0px 1px 10px rgba(244, 102, 117, 0.3);
+
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

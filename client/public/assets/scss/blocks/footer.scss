@@ -1,0 +1,266 @@
+.footer {
+    width: 100%;
+    min-height: 17rem;
+    height: auto;
+    background: #201E1E;
+    display: flex;
+    align-items: center;
+
+    &._active {
+        .c-footer__logo {
+            opacity: 1;
+            transform: translateY(0);
+            transition: .4s ease 0s;
+        }
+
+        .c-footer__txt {
+            opacity: 1;
+            transform: translateY(0);
+            transition: .4s ease .2s;
+        }
+
+        .footer__arrow {
+            opacity: 1;
+            transform: translateY(0);
+            transition: .4s ease .4s;
+        }
+
+        .c-footer__contacts {
+            opacity: 1;
+            transform: translateY(0);
+            transition: .4s ease .6s;
+        }
+    }
+
+    .c-container {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+
+        @include breakpoint($FooterBreakpointT) {
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .c-footer__logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 1rem;
+
+            .c-footer-logo-txt {
+                left: 0;
+                top: 0;
+                font-family: $logo-font;
+                font-style: normal;
+                font-weight: 900;
+                font-size: 3rem;
+                line-height: 3.5rem;
+                letter-spacing: 0.16em;
+                margin-left: 1.5rem;
+                color: #FFFFFF;
+                margin-bottom: 1rem;
+                text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+                @include breakpoint($thirdBreakpoint) {
+                    font-size: 1.8rem;
+                    line-height: 18px;
+                    letter-spacing: 0.16em;
+                    margin-bottom: .2rem;
+                    margin-left: 1rem;
+                }
+            }
+
+            @include breakpoint($FooterBreakpointT) {
+
+                margin: 5rem;
+            }
+
+            @include breakpoint($thirdBreakpoint) {
+                margin: 2rem;
+                margin-top: 5rem;
+            }
+
+            @include breakpoint($thirdBreakpoint) {
+                img {
+
+                    max-width: 4rem;
+                    min-width: 4rem;
+                    height: 4rem;
+                    width: 100%;
+
+                }
+            }
+        }
+
+        .c-footer__txt {
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 22px;
+            /* identical to box height */
+            letter-spacing: 0.01em;
+            color: #BDBBBB;
+
+            @include breakpoint($FooterBreakpointT) {
+                text-align: center;
+                margin-bottom: 5rem;
+            }
+
+            @include breakpoint($thirdBreakpoint) {
+                font-size: 1rem;
+            }
+
+            .c-footer__social {
+                text-align: center;
+                margin-top: 1rem;
+
+                img {
+                    margin-right: 1rem;
+                    opacity: .8;
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: 1;
+                        transition: .2s ease 0s;
+                    }
+                }
+
+            }
+        }
+
+        .footer__arrow {
+            cursor: pointer;
+            position: relative;
+
+            @include breakpoint($FooterBreakpointT) {
+                text-align: center;
+                margin-bottom: 5rem;
+                opacity: .5;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                width: 5rem;
+                height: 5rem;
+                left: -1.5rem;
+                top: -.5rem;
+                opacity: .6;
+                background: white;
+                border-radius: 10rem;
+                background: rgba(255, 255, 255, 0.3);
+                opacity: 0;
+                border: 2px solid #FFFFFF;
+                box-sizing: border-box;
+                filter: blur(10px);
+                transition: .2s linear;
+
+                @include breakpoint($FooterBreakpointT) {
+                    display: none;
+
+                }
+            }
+
+            &:hover {
+                &::after {
+                    transition: .2s linear;
+
+                    opacity: .6;
+
+                }
+
+                @include breakpoint($FooterBreakpointT) {
+                    transition: .2s linear;
+                    opacity: 1;
+                }
+            }
+        }
+
+        .c-footer__contacts {
+          
+
+
+            animation: contacts 800ms steps(200) infinite normal;
+
+
+            position: relative;
+
+
+
+            .c-footer__phone {
+                margin: 0.5rem 0;
+                display: flex;
+                align-items: center;
+                color: #fff;
+                cursor: pointer;
+
+
+
+
+                p {
+                    margin-left: 1rem;
+                    font-size: 2rem;
+                    text-decoration: none;
+                    color: #fff;
+
+                    @include breakpoint($thirdBreakpoint) {
+                        font-size: 1rem;
+                    }
+
+                    @include breakpoint($FooterBreakpointT) {
+                        margin-right: 1rem;
+
+                    }
+
+                    &:hover {
+                        color: darken(#fff, 10);
+                    }
+
+                }
+
+                @include breakpoint($thirdBreakpoint) {
+                    img {
+                        width: 1.2rem;
+                        height: auto;
+                    }
+
+                }
+
+            }
+
+            @include breakpoint($FooterBreakpointT) {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                margin: 5rem;
+            }
+        }
+
+    }
+
+    .c-footer__logo,
+    .c-footer__txt,
+    .footer__arrow,
+    .c-footer__contacts {
+        opacity: 0;
+        transform: translateY(50%);
+        transition: .1s ease 0s;
+    }
+}
+  @keyframes contacts {
+
+                0% {
+                    transform: scale(1);
+                }
+
+                50% {
+                    transform: scale(1.02);
+                }
+
+                100% {
+                    transform: scale(1);
+                }
+            }

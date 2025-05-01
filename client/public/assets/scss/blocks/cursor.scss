@@ -1,0 +1,38 @@
+@keyframes appear {
+	0%{
+		opacity: .8;
+		transform: scale(.5, .5);
+	}
+	70%{
+		opacity: .3;
+		transform: scale(1, 1);
+	}
+	100%{
+		opacity: 0;
+		transform: scale(.5, .5);
+	}
+}
+@-webkit-keyframes appear {
+	0%{
+		opacity: .8;
+		-webkit-transform: scale(.5, .5);
+	}
+	70%{
+		opacity: .3;
+		-webkit-transform: scale(1, 1);
+	}
+	100%{
+		opacity: 0;
+		-webkit-transform: scale(.5, .5);
+	}
+}
+.cursor {
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	margin: -20px 0 0 -20px;
+	border-radius: 50%;
+	background: #ef2c68;
+	animation: appear .2s;
+	-webkit-animation: appear .2s;
+}

@@ -1,0 +1,183 @@
+.c-section-question {
+    height: auto;
+    background: #201E1E;
+    position: relative;
+    padding-top: 10.5rem;
+    padding-bottom: 10rem;
+
+    @include breakpoint($thirdBreakpoint) {
+        padding-top: 4.5rem;
+
+    }
+
+    &._active {
+
+        .c-section-question__img,
+        .c-section-question__title,
+            {
+            opacity: 1;
+            transform: translateX(0);
+            transition: .4s ease 0s;
+        }
+
+
+    }
+
+    .c-section-question__img {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        opacity: .8;
+
+        img {
+            @include breakpoint($questionBreakpointS) {
+                height: 60rem;
+
+            }
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 90%;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90.38deg, #201E1E -19.82%, rgba(32, 30, 30, 0.1) 147.52%);
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        @include breakpoint($questionBreakpointF) {
+            // right: -8%;
+
+        }
+
+        @include breakpoint($questionBreakpointS) {
+            right: -6rem;
+
+        }
+
+        opacity: 0;
+        transition: .4s ease-out 0s;
+        transform: translateX(20%);
+
+    }
+
+    .c-section-question__title {
+        font-weight: 900;
+        font-size: 4rem;
+        color: #fff;
+        shape-outside: url('../img/fno.webp');
+        clip-path: url('../img/fno.webp');
+
+        @include breakpoint($aboutBreakpoint) {
+            font-size: 3rem;
+            line-height: 3rem;
+
+
+        }
+
+        @include breakpoint($thirdBreakpoint) {
+            font-size: 2rem;
+
+        }
+
+        opacity: 0;
+        transition: .4s ease-out 0s;
+        transform: translateX(20%);
+
+
+    }
+
+    .c-section-question__input {
+        max-width: 80rem;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 3rem;
+
+        @include breakpoint($questionBreakpointF) {
+            display: block;
+
+        }
+
+        .c-input-block {
+            @include breakpoint($questionBreakpointT) {
+                margin-top: 5rem;
+
+            }
+
+            .c-input__title {
+                @include breakpoint($questionBreakpointF) {
+                    font-size: 2rem;
+
+                }
+
+                @include breakpoint($questionBreakpointT) {
+                    font-size: 1rem;
+                    top: 1rem;
+
+                }
+            }
+
+            .c-input {
+                &:focus {
+                    border-bottom: 2px solid #fff;
+                    transition: .2s linear;
+                    color: #fff;
+
+                    +.c-input__title {
+
+                        @include breakpoint($questionBreakpointT) {
+                            top: -1rem;
+
+
+                        }
+                    }
+                }
+
+                @include breakpoint($questionBreakpointT) {
+                    font-size: 1rem;
+
+
+                }
+            }
+        }
+
+        opacity: 0;
+        transition: .1s ease-out 0s;
+        transform: translateX(20%);
+
+        &._active {
+
+                opacity: 1;
+                transform: translateX(0);
+                transition: .8s ease .2s;
+            
+        }
+    }
+
+    .c-section-checkbox {
+
+
+        opacity: 0;
+        transition: .1s ease-out 0s;
+        transform: translateX(20%);
+
+    &._active {
+
+                opacity: 1;
+                transform: translateX(0);
+                transition: .8s ease .2s;
+            
+        }
+        .c-seaction-checkbox__title {
+
+            @include breakpoint($questionBreakpointS) {
+                font-size: 1rem;
+
+
+            }
+        }
+    }
+}

@@ -1,0 +1,109 @@
+.c-sidebar {
+    width: 20rem;
+    height: 20rem;
+    background-color: white;
+    position: absolute;
+    right: 0;
+    bottom: -19.7rem;
+    border-bottom-left-radius: 6rem;
+    border-top-left-radius: 6rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: .2s linear;
+    visibility: hidden;
+    overflow: scroll;
+
+    .c-nav {
+        height: auto;
+        max-width: 10rem;
+        display: block;
+        visibility: visible;
+        margin: auto;
+        transition: .2s linear;
+
+        a {
+            line-height: 3rem;
+            margin: 0;
+
+            &::after {
+                display: none;
+                opacity: 0;
+            }
+
+            &:hover {
+                background: linear-gradient(282.41deg, #F46362 49.38%, #F26788 89.69%);
+                color: #F46362;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                transition: .2s linear;
+
+            }
+        }
+
+
+
+
+    }
+
+    &.active-sidebar {
+        display: flex;
+        visibility: visible;
+    }
+
+    .active-burger & {
+
+        opacity: 1;
+        transition: .2s linear;
+        transform: translateX(0%);
+    }
+
+
+    @media only screen and (min-width: 1050px) and (max-width: 3000px) {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    @include breakpoint(600px) {
+        width: 15rem;
+        height: 13rem;
+        bottom: -12.7rem;
+        border-bottom-left-radius: 2rem;
+        border-top-left-radius: 2rem;
+
+        .c-nav {
+            max-width: 8rem;
+            display: block;
+            visibility: visible;
+            margin: auto;
+            transition: .2s linear;
+            font-size: 1rem;
+
+            a {
+                line-height: 2rem;
+                margin: 0;
+
+                &::after {
+                    display: none;
+                    opacity: 0;
+                }
+
+                &:hover {
+                    background: linear-gradient(282.41deg, #F46362 49.38%, #F26788 89.69%);
+                    color: #F46362;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    transition: .2s linear;
+
+                }
+            }
+
+
+
+
+        }
+    }
+}

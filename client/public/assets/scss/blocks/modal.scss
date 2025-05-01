@@ -1,0 +1,320 @@
+.c-modal {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background: rgba(black, .6);
+    // backdrop-filter: blur(2px);
+    // display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 1rem 2rem;
+
+
+
+    &.show {
+        display: flex;
+    }
+
+    .c-modal__content {
+        max-width: 60rem;
+        width: 100%;
+        background: #FFFFFF;
+        padding: 4rem 9rem;
+
+        overflow: scroll;
+        box-shadow: 0px 5px 18px 1px rgba(#fff, .25);
+        border-radius: 2.5rem;
+        transform: translateY(50px);
+        opacity: 0;
+        transition: .3s ease-in-out;
+
+        @include breakpoint($modalBreakpointF) {
+            max-width: 50rem;
+            padding: 3rem 5rem;
+            margin: 0 1rem;
+        }
+
+        @include breakpoint($modalBreakpointS) {
+            max-width: 30rem;
+            padding: 3rem 5rem;
+            margin: 0 1rem;
+        }
+
+        .c-modal-content__title {
+            font-style: normal;
+            font-weight: 900;
+            font-size: 2rem;
+            line-height: 3rem;
+
+            text-align: center;
+
+            color: #000000;
+
+            @include breakpoint($modalBreakpointS) {
+                font-size: 1.2rem;
+                line-height: 1.5rem;
+            }
+        }
+
+        .c-modal-content-input-block {
+            .c-input-block {
+                margin-top: 3rem;
+                max-width: 50rem;
+
+                @include breakpoint($modalBreakpointS) {
+                    margin-top: 2rem;
+
+                }
+
+                .c-input__title {
+                    font-size: 2rem;
+                    top: 1rem;
+
+                    @include breakpoint($modalBreakpointF) {
+                        font-size: 1.5rem;
+                    }
+
+                    @include breakpoint($modalBreakpointS) {
+                        font-size: 1rem;
+                        top: 1rem;
+
+                    }
+                }
+
+
+
+                .c-input {
+                    padding-left: .4rem;
+                    width: 100%;
+                    height: 4.5rem;
+                    font-size: 2rem;
+                    max-width: 100%;
+
+                    @include breakpoint($modalBreakpointF) {
+                        font-size: 1.5rem;
+                    }
+
+                    @include breakpoint($modalBreakpointS) {
+                        font-size: 1rem;
+                        height: 2.5rem;
+
+                    }
+
+                    &:focus {
+                        border-bottom: 2px solid #000;
+                        transition: .2s linear;
+                        color: #000;
+
+                        +.c-input__title {
+                            top: -1rem;
+                            font-size: 1.3rem;
+                            transition: .1s linear;
+                            color: #000;
+
+                            @include breakpoint($modalBreakpointS) {
+                                font-size: .7rem;
+
+
+                            }
+                        }
+
+
+                    }
+
+                    &:not(:focus):valid~.c-input__title {
+                        top: -1rem;
+                        font-size: 1.3rem;
+                        transition: .1s linear;
+                        color: #BDBBBB;
+
+                        @include breakpoint($modalBreakpointS) {
+                            font-size: .7rem;
+
+
+                        }
+                    }
+
+                    &[type="date"]:invalid~.c-input__title {
+                        top: -1rem;
+                        font-size: 1.3rem;
+
+                        @include breakpoint($modalBreakpointS) {
+                            font-size: .7rem;
+
+
+                        }
+
+                    }
+                }
+
+
+            }
+        }
+
+        .c-modal-content-btn {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+
+            .c-gradient-btn {
+                width: 100%;
+                max-width: 19rem;
+                height: 5rem;
+                border-radius: 1rem;
+
+                @include breakpoint($modalBreakpointS) {
+
+                    max-width: 10rem;
+                    height: 3rem;
+                    border-radius: .5rem;
+
+
+                }
+
+                .c-gradient-btn__txt {
+                    font-size: 1.5rem;
+
+                    @include breakpoint($modalBreakpointS) {
+
+                        font-size: 1rem;
+
+
+                    }
+                }
+
+                &:hover {
+                    transform: translate(0, 1px);
+                }
+
+                &::after {
+
+                    box-shadow: 0px 5px 10px rgba(244, 102, 117, 0.3);
+                }
+
+
+            }
+        }
+
+        .c-modal-content-checkbox {
+            display: flex;
+            margin-top: 2rem;
+            align-items: center;
+            height: 2.2rem;
+
+            @include breakpoint($modalBreakpointS) {
+
+                margin-top: 1rem;
+
+
+            }
+
+            .c-container-checkbox {
+                padding-left: 2.5rem;
+
+                @include breakpoint($modalBreakpointS) {
+                    padding-left: 1.5rem;
+                }
+            }
+
+            .c-container-checkbox:hover input~.checkmark {
+                background-color: darken(#fff, 1);
+            }
+
+            .c-container-checkbox input:checked~.checkmark {
+                background: darken(#fff, 5);
+            }
+
+
+            .checkmark {
+                top: -.2rem;
+                height: 1.7rem;
+                width: 1.7rem;
+
+                @include breakpoint($modalBreakpointS) {
+                    height: 1rem;
+                    width: 1rem;
+                    border-radius: .3rem;
+                    top: 0;
+
+                }
+            }
+
+            .c-seaction-checkbox__title {
+                cursor: pointer;
+            }
+
+            .c-container-checkbox .checkmark:after {
+                left: 5px;
+                top: 2px;
+                width: 5px;
+                height: 10px;
+                border: solid black;
+                border-width: 0 3px 3px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+
+                @include breakpoint($modalBreakpointS) {
+                    width: 3px;
+                    height: 6px;
+                    left: 3px;
+                    top: 1px;
+                    border-width: 0 1px 1px 0;
+                    border-radius: 0.7px;
+                }
+            }
+
+            .c-seaction-checkbox__title {
+                font-weight: normal;
+                font-size: 1.3rem;
+                line-height: 24px;
+
+                @include breakpoint($modalBreakpointS) {
+
+                    font-size: .7rem;
+                    line-height: 1rem;
+
+
+                }
+            }
+        }
+
+        .c-modal__close {
+            padding: 0;
+            background: none;
+            border: none;
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            cursor: pointer;
+            transition: .1s ease-out;
+            opacity: .5;
+
+            &:hover {
+                opacity: 1;
+                transition: .2s ease-out;
+                transform: rotate(-90deg);
+            }
+
+            @include breakpoint($modalBreakpointOfllineF) {
+
+                width: 2rem;
+                top: 3%;
+                right: 3%;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+    }
+}
