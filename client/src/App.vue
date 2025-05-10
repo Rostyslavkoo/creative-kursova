@@ -1,33 +1,26 @@
 <script setup>
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
-import IntroSection from './components/IntroSection.vue'
-import ProgramsSection from './components/ProgramsSection.vue'
-import AboutSection from './components/AboutSection.vue'
-import GallerySection from './components/GallerySection.vue'
-import ReviewsSection from './components/ReviewsSection.vue'
-import SignUpSection from './components/SignUpSection.vue'
-import QuestionSection from './components/QuestionSection.vue'
-import ProgramsSliderSection from './components/ProgramsSliderSection.vue'
+import { useSnackbar } from './composables/useSnackbar'
+const { snackbar } = useSnackbar()
 </script>
 
 <template>
-  <v-app>
-    <Header />
-    
-    <v-main class="pt-0">
-      <IntroSection />
-      <ProgramsSliderSection />
-      <AboutSection />
-      <ProgramsSection />
-      <GallerySection />
-      <SignUpSection />
-      <ReviewsSection />
-      <QuestionSection />
-    </v-main>
-
-    <Footer />
-  </v-app>
+  <router-view />
+  <v-snackbar
+    v-model="snackbar.show"
+    :color="snackbar.color"
+    :timeout="snackbar.timeout"
+  >
+    {{ snackbar.text }}
+    <template v-slot:action="{ attrs }">
+      <v-btn
+        text
+        v-bind="attrs"
+        @click="snackbar.show = false"
+      >
+        Закрити
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <style>
