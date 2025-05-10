@@ -14,6 +14,16 @@ const programSchema = new mongoose.Schema({
     type: String,
     default: null
   },
+  type: {
+    type: String,
+    enum: ['онлайн', 'офлайн'],
+    required: true
+  },
+  mode: {
+    type: String,
+    enum: ['групові', 'індивідуальні'],
+    required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now

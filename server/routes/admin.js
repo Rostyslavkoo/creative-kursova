@@ -84,15 +84,17 @@ router.get('/programs', async (req, res) => {
 // Create new program
 router.post('/programs', upload.single('image'), async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, type, mode } = req.body;
     
-    if (!title || !description) {
-      return res.status(400).json({ message: 'Title and description are required' });
+    if (!title || !description || !type || !mode) {
+      return res.status(400).json({ message: 'Title, description, type, and mode are required' });
     }
 
     const program = new Program({
       title,
       description,
+      type,
+      mode,
       image: req.file ? req.file.filename : null
     });
 
@@ -107,15 +109,17 @@ router.post('/programs', upload.single('image'), async (req, res) => {
 // Update program
 router.put('/programs/:id', upload.single('image'), async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, type, mode } = req.body;
     
-    if (!title || !description) {
-      return res.status(400).json({ message: 'Title and description are required' });
+    if (!title || !description || !type || !mode) {
+      return res.status(400).json({ message: 'Title, description, type, and mode are required' });
     }
 
     const updateData = {
       title,
-      description
+      description,
+      type,
+      mode
     };
 
     if (req.file) {
