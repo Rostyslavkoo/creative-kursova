@@ -31,17 +31,17 @@ if (animItems.length > 0) {
 
 
     let preloader = document.querySelector('.c-preloader');
-    body.onload = function() {
+    document.body.onload = function() {
 
         setTimeout(() => {
-            body.classList.add('c-hide-preloader')
-            body.classList.remove('preloader-active')
+            document.body.classList.add('c-hide-preloader')
+            document.body.classList.remove('preloader-active')
 
             setTimeout(function() {
-                body.classList.add('c-preloader-hidden')
-                body.classList.remove('no-scroll')
+                document.body.classList.add('c-preloader-hidden')
+                document.body.classList.remove('no-scroll')
                 animOnScroll();
-                                window.scrollTo(0, 0);
+                window.scrollTo(0, 0);
 
             }, 100)
 

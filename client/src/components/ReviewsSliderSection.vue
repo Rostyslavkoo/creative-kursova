@@ -6,7 +6,7 @@
         <Swiper
           :slides-per-view="2"
           :space-between="40"
-          :loop="true"
+          :loop="reviews.length > 2"
           :pagination="{ clickable: true }"
           :autoplay="{ delay: 4000, disableOnInteraction: false }"
           class="swiper-custom"

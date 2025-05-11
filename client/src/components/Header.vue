@@ -117,7 +117,7 @@ onUnmounted(() => {
 }
 
 .c-header-contacts {
-  display: flex;
+  /* display: flex; */
   gap: 20px;
 }
 
@@ -126,6 +126,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .c-header__phone img {
