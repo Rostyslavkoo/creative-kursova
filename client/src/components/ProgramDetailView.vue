@@ -53,10 +53,12 @@
       </v-card-text>
     </v-card>
   </v-dialog>
+  <SignUpModal ref="signUpModalRef" />
 </template>
 
 <script setup>
 import { ref } from "vue";
+import SignUpModal from './SignUpModal.vue';
 
 const props = defineProps({
   program: {
@@ -67,6 +69,7 @@ const props = defineProps({
 });
 
 const dialog = ref(false);
+const signUpModalRef = ref(null);
 
 const openModal = () => {
   dialog.value = true;
@@ -77,8 +80,7 @@ const closeModal = () => {
 };
 
 const signUp = () => {
-  // Implement sign up logic
-  console.log("Sign up clicked for program:", props.program?._id);
+  signUpModalRef.value?.openModal();
 };
 
 defineExpose({ openModal });

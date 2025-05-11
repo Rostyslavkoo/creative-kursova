@@ -51,12 +51,14 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+import { useSnackbar } from '../composables/useSnackbar'
 
 const router = useRouter()
 const username = ref('')
 const password = ref('')
 const form = ref(null)
 const error = ref('')
+const { notify } = useSnackbar()
 
 const handleLogin = async () => {
   error.value = ''
@@ -87,7 +89,9 @@ const handleLogin = async () => {
     }
   } catch (error) {
     console.error('Login error:', error)
-    error.value = error.response?.data?.message || 'Login failed. Please try again.'
+    const msg = error.response?.data?.message || 'Login failed. Please try again.'
+    error.value = msg
+    notify(msg, 'error')
   }
 }
 </script>

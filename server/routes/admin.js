@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const { adminAuth } = require('../middleware/auth');
 const Program = require('../models/Program');
+const reviewController = require('../controllers/reviewController');
 
 const router = express.Router();
 
@@ -205,5 +206,11 @@ router.delete('/programs/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+// Review routes
+router.get('/reviews', reviewController.getAllReviews);
+router.post('/reviews', upload.single('image'), reviewController.createReview);
+router.put('/reviews/:id', upload.single('image'), reviewController.updateReview);
+router.delete('/reviews/:id', reviewController.deleteReview);
 
 module.exports = router; 

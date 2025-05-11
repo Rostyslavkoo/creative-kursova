@@ -6,7 +6,7 @@
     <ProgramsSection />
     <GallerySection />
     <SignUpSection />
-    <ReviewsSection />
+    <ReviewsSliderSection />
     <QuestionSection />
   </div>
 </template>
@@ -19,7 +19,7 @@ import AboutSection from '../components/AboutSection.vue'
 import ProgramsSection from '../components/ProgramsSection.vue'
 import GallerySection from '../components/GallerySection.vue'
 import SignUpSection from '../components/SignUpSection.vue'
-import ReviewsSection from '../components/ReviewsSection.vue'
+import ReviewsSliderSection from '../components/ReviewsSliderSection.vue'
 import QuestionSection from '../components/QuestionSection.vue'
 
 onMounted(() => {

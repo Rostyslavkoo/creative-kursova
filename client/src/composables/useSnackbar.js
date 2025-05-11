@@ -1,39 +1,20 @@
 import { ref } from 'vue'
 
-const snackbar = ref({
-  show: false,
-  text: '',
-  color: 'success',
-  timeout: 3000
-})
+const show = ref(false)
+const message = ref('')
+const color = ref('success')
+
+function notify(msg, type = 'success', timeout = 4000) {
+  message.value = msg
+  color.value = type === 'error' ? 'error' : 'success'
+  show.value = true
+}
 
 export function useSnackbar() {
-  const showSnackbar = (text, color = 'success', timeout = 3000) => {
-    snackbar.value = {
-      show: true,
-      text,
-      color,
-      timeout
-    }
-  }
-
-  const showError = (text, timeout = 3000) => {
-    showSnackbar(text, 'error', timeout)
-  }
-
-  const showSuccess = (text, timeout = 3000) => {
-    showSnackbar(text, 'success', timeout)
-  }
-
-  const hideSnackbar = () => {
-    snackbar.value.show = false
-  }
-
   return {
-    snackbar,
-    showSnackbar,
-    showError,
-    showSuccess,
-    hideSnackbar
+    show,
+    message,
+    color,
+    notify
   }
 } 

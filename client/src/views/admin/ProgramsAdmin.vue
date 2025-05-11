@@ -8,12 +8,12 @@
     <v-data-table
       :headers="headers"
       :items="programs"
-      class="elevation-1 program-table pb-2"
+      class="elevation-0 program-table pb-2"
       item-key="_id"
       :items-per-page="programs.length"
       :loading="loading"
       dense
-      height="100%"
+       height="80vh"
       fixed-header
       hide-default-footer
     >
@@ -47,19 +47,6 @@
           >{{ item.mode }}</v-chip
         >
         <span v-else>--</span>
-      </template>
-      <template #item.details="{ item }">
-        <v-expansion-panels v-if="item.details && item.details.length" multiple>
-          <v-expansion-panel v-for="(detail, idx) in item.details" :key="idx">
-            <v-expansion-panel-title>
-              <span class="font-weight-bold">{{ detail.title }}</span>
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <div>{{ detail.description }}</div>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-        </v-expansion-panels>
-        <span v-else class="text-grey">—</span>
       </template>
       <template #item.actions="{ item }">
         <v-row no-gutters >
@@ -228,12 +215,24 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <DeleteConfirmationDialog
+      v-model="deleteDialog"
+      title="Видалення програми"
+      message="Ви впевнені, що хочете видалити цю програму?"
+      @confirm="confirmDeleteProgram"
+      @cancel="programToDelete = null"
+    />
   </v-card>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted } from "vue";
 import axios from "axios";
+import DeleteConfirmationDialog from '../../components/DeleteConfirmationDialog.vue';
+import { useSnackbar } from '../../composables/useSnackbar';
+
+const { notify } = useSnackbar();
 
 const headers = [
   { title: "Картинка", value: "image", sortable: false, align: "center" },
@@ -263,6 +262,8 @@ const editedProgram = reactive({
   showInCarousel: false,
 });
 const formRef = ref(null);
+const deleteDialog = ref(false);
+const programToDelete = ref(null);
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const API_URL = `${API_BASE_URL}/api/admin/programs`;
@@ -280,7 +281,8 @@ async function fetchPrograms() {
     const { data } = await axios.get(API_URL);
     programs.value = data;
   } catch (e) {
-    // handle error
+    const msg = e?.response?.data?.message || 'Не вдалося завантажити програми';
+    notify(msg, 'error');
   } finally {
     loading.value = false;
   }
@@ -346,23 +348,30 @@ async function saveProgram() {
     await fetchPrograms();
     closeDialog();
   } catch (e) {
-    // handle error
+    const msg = e?.response?.data?.message || 'Не вдалося зберегти програму';
+    notify(msg, 'error');
   }
 }
 async function deleteProgram(item) {
-  if (!confirm("Видалити програму?")) return;
+  programToDelete.value = item;
+  deleteDialog.value = true;
+}
+
+async function confirmDeleteProgram() {
+  if (!programToDelete.value) return;
   try {
-    await axios.delete(`${API_URL}/${item._id}`);
+    await axios.delete(`${API_URL}/${programToDelete.value._id}`);
     await fetchPrograms();
   } catch (e) {
-    // handle error
+    const msg = e?.response?.data?.message || 'Не вдалося видалити програму';
+    notify(msg, 'error');
   }
 }
 
 onMounted(fetchPrograms);
 </script>
 
-<style scoped>
+<style >
 .admin-content-card {
   height: 100%;
   min-height: 0;

@@ -31,7 +31,7 @@ const toggleDrawer = () => { drawer.value = !drawer.value }
 }
 
 :deep(.admin-content-card) {
-  height: calc(100vh - 154px);
+  height: calc(100vh - 94px);
   margin: 0;
   border-radius: 0;
   background: #fff;

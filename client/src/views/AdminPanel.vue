@@ -1,18 +1,20 @@
 <template>
-  <v-container>
+  <v-container class="admin-panel-wrapper">
     <v-row>
       <v-col cols="12">
         <h1 class="text-h4 mb-4">Панель адміністратора</h1>
         
         <!-- Programs Management -->
-        <v-card class="mb-6">
+        <v-card class="mb-6" style="display: flex; flex-direction: column; height: 80vh; min-height: 0;">
           <v-card-title>Управління програмами</v-card-title>
-          <v-card-text>
+          <v-card-text style="flex: 1 1 0; min-height: 0; display: flex; flex-direction: column;">
             <v-data-table
               :headers="headers"
               :items="programs"
               :loading="loading"
+              class="elevation-1 full-height-table"
               class="elevation-1"
+              height="500px"
             >
               <template v-slot:top>
                 <v-toolbar flat>
@@ -143,7 +145,7 @@ const formTitle = computed(() => {
   return editedIndex.value === -1 ? 'Нова програма' : 'Редагувати програму'
 })
 
-const { showError, showSuccess } = useSnackbar()
+const { notify } = useSnackbar()
 
 const getErrorMessage = (error) => {
   if (error.response?.data?.error) {
@@ -162,7 +164,7 @@ const fetchPrograms = async () => {
     programs.value = response.data
   } catch (error) {
     console.error('Error fetching programs:', error)
-    showError(getErrorMessage(error))
+    notify(getErrorMessage(error), 'error')
   } finally {
     loading.value = false
   }
@@ -179,10 +181,10 @@ const deleteItem = async (item) => {
     try {
       await axios.delete(`http://localhost:3000/api/admin/programs/${item._id}`)
       programs.value = programs.value.filter(p => p._id !== item._id)
-      showSuccess('Програму успішно видалено')
+      notify('Програму успішно видалено', 'success')
     } catch (error) {
       console.error('Error deleting program:', error)
-      showError(getErrorMessage(error))
+      notify(getErrorMessage(error), 'error')
     }
   }
 }
@@ -196,7 +198,7 @@ const closeDialog = () => {
 const save = async () => {
   try {
     if (!editedItem.value.title || !editedItem.value.description) {
-      showError('Будь ласка, заповніть всі обов\'язкові поля')
+      notify('Будь ласка, заповніть всі обов\'язкові поля', 'error')
       return
     }
 
@@ -219,7 +221,7 @@ const save = async () => {
         }
       )
       Object.assign(programs.value[editedIndex.value], editedItem.value)
-      showSuccess('Програму успішно оновлено')
+      notify('Програму успішно оновлено', 'success')
     } else {
       // Create new program
       const response = await axios.post(
@@ -232,12 +234,12 @@ const save = async () => {
         }
       )
       programs.value.push(response.data)
-      showSuccess('Програму успішно створено')
+      notify('Програму успішно створено', 'success')
     }
     closeDialog()
   } catch (error) {
     console.error('Error saving program:', error)
-    showError(getErrorMessage(error))
+    notify(getErrorMessage(error), 'error')
   }
 }
 

@@ -11,7 +11,7 @@
         </a>
 
         <div class="c-footer__txt">
-          2024 © Всі права застережено
+          {{new Date().getFullYear()}} © Всі права застережено
           <div class="c-footer__social">
             <a href="https://www.facebook.com/creativ.musicschool" target="_blank">
               <img src="/assets/img/fb-logo.svg" alt="школа музики креатив facebook">

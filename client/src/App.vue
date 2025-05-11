@@ -1,26 +1,12 @@
 <script setup>
 import { useSnackbar } from './composables/useSnackbar'
-const { snackbar } = useSnackbar()
+import SnackbarNotification from './components/SnackbarNotification.vue'
+const { show, message, color } = useSnackbar()
 </script>
 
 <template>
   <router-view />
-  <v-snackbar
-    v-model="snackbar.show"
-    :color="snackbar.color"
-    :timeout="snackbar.timeout"
-  >
-    {{ snackbar.text }}
-    <template v-slot:action="{ attrs }">
-      <v-btn
-        text
-        v-bind="attrs"
-        @click="snackbar.show = false"
-      >
-        Закрити
-      </v-btn>
-    </template>
-  </v-snackbar>
+  <SnackbarNotification v-model="show" :message="message" :color="color" />
 </template>
 
 <style>

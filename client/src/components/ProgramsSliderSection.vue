@@ -3,16 +3,25 @@
     <div class="c-container">
       <div class="programs-slider-wrapper">
         <div class="swiper-container">
-          <div class="swiper-wrapper">
-            <div v-for="program in programs" :key="program.id" class="swiper-slide">
+          <div
+            class="swiper-wrapper"
+            :style="{ transform: `translateX(-${currentIndex * (100 / slidesToShow)}%)` }"
+          >
+            <div
+              v-for="program in programs"
+              :key="program._id"
+              class="swiper-slide"
+              @click="openDetail(program)"
+              style="cursor:pointer"
+            >
               <div class="program-card">
                 <div class="program-card-header">
                   <div class="program-card-title">{{ program.title }}</div>
-                  <div class="program-card-arrow">{{program.arrow}}</div>
+                  <div class="program-card-arrow">→</div>
                 </div>
                 <div class="program-card-body">
-                  <img 
-                    :src="program.image" 
+                  <img
+                    :src="program.image ? (program.image.startsWith('http') ? program.image : `${API_BASE_URL}/uploads/${program.image}`) : 'https://i.imgur.com/lrQ5QRR.jpg'"
                     :alt="program.title"
                     class="program-card-image c-unselectable"
                     draggable="false"
@@ -22,7 +31,6 @@
               </div>
             </div>
           </div>
-          
           <!-- Navigation buttons -->
           <button class="nav-button prev" @click="prevSlide">
             <v-icon>mdi-chevron-left</v-icon>
@@ -30,11 +38,10 @@
           <button class="nav-button next" @click="nextSlide">
             <v-icon>mdi-chevron-right</v-icon>
           </button>
-          
           <!-- Pagination dots -->
           <div class="pagination">
-            <div 
-              v-for="(program, index) in programs" 
+            <div
+              v-for="(program, index) in programs"
               :key="`dot-${index}`"
               class="pagination-dot"
               :class="{ 'active': currentIndex === index }"
@@ -43,52 +50,46 @@
           </div>
         </div>
       </div>
+      <!-- Program Detail Modal -->
+      <ProgramDetailView ref="detailView" :program="selectedProgram" />
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+import ProgramDetailView from './ProgramDetailView.vue'
 
-const programs = ref([
-  {
-    id: 1,
-    title: 'Вокал',
-    image: 'https://i.imgur.com/T3XlwkR.jpg',
-    arrow: '→'
-  },
-  {
-    id: 2,
-    title: 'Фортепіано',
-    image: 'https://i.imgur.com/0KzYTJv.jpg',
-    arrow: '→'
-  },
-  {
-    id: 3,
-    title: 'Гітара',
-    image: 'https://i.imgur.com/lwu1l9K.jpg',
-    arrow: '→'
-  },
-  {
-    id: 4,
-    title: 'Скрипка',
-    image: 'https://i.imgur.com/U9w9vQg.jpg',
-    arrow: '→'
-  }
-])
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+const API_URL = `${API_BASE_URL}/api/admin/programs`
 
+const programs = ref([])
 const currentIndex = ref(0)
+const detailView = ref(null)
+const selectedProgram = ref(null)
+const slidesToShow = 2
+
+const fetchPrograms = async () => {
+  try {
+    const { data } = await axios.get(API_URL)
+    programs.value = data.filter(p => p.showInCarousel)
+  } catch (e) {
+    programs.value = []
+  }
+}
 
 const handleImageError = (program) => {
-  // Set default image if loading fails
-  program.image = 'https://i.imgur.com/lrQ5QRR.jpg' // Default music image
+  program.image = 'https://i.imgur.com/lrQ5QRR.jpg'
 }
 
 const nextSlide = () => {
+  if (programs.value.length === 0) return
   currentIndex.value = (currentIndex.value + 1) % programs.value.length
 }
 
 const prevSlide = () => {
+  if (programs.value.length === 0) return
   currentIndex.value = (currentIndex.value - 1 + programs.value.length) % programs.value.length
 }
 
@@ -96,13 +97,12 @@ const goToSlide = (index) => {
   currentIndex.value = index
 }
 
-onMounted(() => {
-  // Removed autoplay
-})
+const openDetail = (program) => {
+  selectedProgram.value = program
+  detailView.value.openModal()
+}
 
-onBeforeUnmount(() => {
-  // Removed autoplay cleanup
-})
+onMounted(fetchPrograms)
 </script>
 
 <style scoped>
@@ -118,7 +118,7 @@ onBeforeUnmount(() => {
   position: absolute;
   max-width: 800px;
   margin: 0 auto;
-    top: -110px;
+  top: -110px;
 }
 
 .swiper-container {
@@ -131,12 +131,11 @@ onBeforeUnmount(() => {
 .swiper-wrapper {
   display: flex;
   transition: transform 0.5s ease;
-  transform: translateX(calc(-100% * v-bind(currentIndex)));
 }
 
 .swiper-slide {
-  flex: 0 0 100%;
-  max-width: 100%;
+  flex: 0 0 50%;
+  max-width: 50%;
   display: flex;
   justify-content: center;
   padding: 0 15px;
@@ -147,6 +146,7 @@ onBeforeUnmount(() => {
   border-radius: 15px;
   overflow: hidden;
   width: 100%;
+  height: 252px;
   max-width: 320px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -192,7 +192,7 @@ onBeforeUnmount(() => {
 .program-card-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.5s;
 }
 
@@ -248,7 +248,7 @@ onBeforeUnmount(() => {
 }
 
 .pagination-dot.active {
-  background-color: #C5CEC3;
+  background-color:rgb(124, 124, 124);
   transform: scale(1.1);
 }
 
