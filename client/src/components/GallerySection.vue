@@ -1,61 +1,72 @@
 <template>
-  <section class="c-section-gallery" id="gallery">
+  <section class="gallery-section c-anim-items">
     <div class="c-container">
-      <div class="c-section-gallery__title c-anim-items">
-        Фотогалерея
-      </div>
-      <div class="c-section-gallery__block c-anim-items c-anim-hide" id="c-gallery">
-        <v-img
-          v-for="(image, index) in galleryImages"
-          :key="index"
-          :src="image.thumb"
-          :alt="image.alt"
-          class="c-section-gallery-block__item"
-          @click="openLightbox(index)"
-          @error="handleImageError(index)"
-          cover
+      <h2 class="section-title">Галерея</h2>
+      <div class="gallery-grid">
+        <div
+          v-for="image in displayedImages"
+          :key="image._id"
+          class="gallery-item"
+          @click="openImageDialog(image)"
         >
-          <template #placeholder>
-            <v-row class="fill-height ma-0" align="center" justify="center">
-              <v-progress-circular indeterminate color="primary"></v-progress-circular>
-            </v-row>
-          </template>
-          <template #error>
-            <v-row class="fill-height ma-0" align="center" justify="center">
-              <v-icon size="48" color="grey lighten-1">mdi-image-off</v-icon>
-            </v-row>
-          </template>
-        </v-img>
+          <v-img
+            :src="getImageUrl(image.url)"
+            height="300"
+            cover
+            class="gallery-image"
+          >
+            <template v-slot:placeholder>
+              <v-row
+                class="fill-height ma-0"
+                align="center"
+                justify="center"
+              >
+                <v-progress-circular
+                  indeterminate
+                  color="primary"
+                ></v-progress-circular>
+              </v-row>
+            </template>
+          </v-img>
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-title">{{ image.title }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="images.length > initialDisplayCount" class="show-more-container">
+        <v-btn
+          color="primary"
+          variant="outlined"
+          @click="toggleShowMore"
+          class="show-more-btn"
+        >
+          {{ showAll ? 'Показати менше' : 'Показати більше' }}
+          <v-icon
+            :class="{ 'rotate-icon': showAll }"
+            class="ml-2"
+          >
+            {{ showAll ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+          </v-icon>
+        </v-btn>
       </div>
     </div>
 
-    <!-- Lightbox -->
-    <v-dialog v-model="lightbox" max-width="90vw">
-      <v-card class="lightbox-card">
+    <!-- Image Preview Dialog -->
+    <v-dialog v-model="showImageDialog" max-width="90vw">
+      <v-card>
         <v-img
-          v-if="currentImage && currentImage.full"
-          :src="currentImage.full"
-          :alt="currentImage?.alt"
+          :src="selectedImage ? getImageUrl(selectedImage.url) : ''"
+          max-height="80vh"
           contain
-          height="80vh"
-          @error="handleFullImageError"
-        >
-          <template #placeholder>
-            <v-row class="fill-height ma-0" align="center" justify="center">
-              <v-progress-circular indeterminate color="primary"></v-progress-circular>
-            </v-row>
-          </template>
-          <template #error>
-            <v-row class="fill-height ma-0" align="center" justify="center">
-              <v-icon size="64" color="grey lighten-1">mdi-image-off</v-icon>
-              <div class="mt-4 text-center">Не вдалося завантажити зображення</div>
-            </v-row>
-          </template>
-        </v-img>
+        ></v-img>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn icon @click="lightbox = false">
-            <v-icon>mdi-close</v-icon>
+          <v-btn
+            color="primary"
+            @click="showImageDialog = false"
+          >
+            Закрити
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -64,108 +75,123 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { useGallery } from '@/composables/useGallery'
 
-const lightbox = ref(false)
-const currentImageIndex = ref(0)
+const { images, loading, fetchImages } = useGallery()
+const showImageDialog = ref(false)
+const selectedImage = ref(null)
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+const UPLOADS_URL = `${API_BASE_URL}`
 
-const galleryImages = ref([
-  {
-    thumb: '/assets/img/gallery/placeholder-thumb.jpg',
-    full: '/assets/img/gallery/placeholder.jpg',
-    alt: 'gallery-1'
-  },
-  {
-    thumb: '/assets/img/gallery/placeholder-thumb.jpg',
-    full: '/assets/img/gallery/placeholder.jpg',
-    alt: 'gallery-2'
-  },
-  {
-    thumb: '/assets/img/gallery/placeholder-thumb.jpg',
-    full: '/assets/img/gallery/placeholder.jpg',
-    alt: 'gallery-3'
-  },
-  {
-    thumb: '/assets/img/gallery/placeholder-thumb.jpg',
-    full: '/assets/img/gallery/placeholder.jpg',
-    alt: 'gallery-4'
-  }
-])
+const initialDisplayCount = 6
+const showAll = ref(false)
 
-const currentImage = computed(() => galleryImages.value[currentImageIndex.value])
+const displayedImages = computed(() => {
+  return showAll.value ? images.value : images.value.slice(0, initialDisplayCount)
+})
 
-const handleImageError = (index) => {
-  galleryImages.value[index].thumb = null
+onMounted(() => {
+  fetchImages()
+})
+
+const openImageDialog = (image) => {
+  selectedImage.value = image
+  showImageDialog.value = true
 }
 
-const handleFullImageError = () => {
-  if (currentImage.value) {
-    currentImage.value.full = null
-  }
+const toggleShowMore = () => {
+  showAll.value = !showAll.value
 }
 
-const openLightbox = (index) => {
-  if (galleryImages.value[index].thumb !== null) {
-    currentImageIndex.value = index
-    lightbox.value = true
-  }
+function getImageUrl(image) {
+  if (!image) return ""
+  if (image.startsWith("http")) return image
+  return `${UPLOADS_URL}${image}`
 }
 </script>
 
 <style scoped>
-.c-section-gallery {
+.gallery-section {
   padding: 80px 0;
-  background: #f5f5f5;
+  background-color: var(--light-bg);
 }
 
-.c-section-gallery__title {
-  font-size: 36px;
-  font-weight: 700;
+.section-title {
   text-align: center;
   margin-bottom: 40px;
+  font-size: 2.5rem;
+  color: var(--text-color);
 }
 
-.c-section-gallery__block {
+.gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  margin-top: 40px;
+  padding: 20px 0;
 }
 
-.c-section-gallery-block__item {
-  aspect-ratio: 1;
-  border-radius: 10px;
+.gallery-item {
+  position: relative;
+  border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease;
-  background-color: #e0e0e0;
 }
 
-.c-section-gallery-block__item:hover {
-  transform: scale(1.05);
+.gallery-item:hover {
+  transform: scale(1.02);
 }
 
-.lightbox-card {
-  background: transparent;
-  box-shadow: none;
+.gallery-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
 }
 
-.lightbox-card .v-card__actions {
+.gallery-item-overlay {
   position: absolute;
-  top: 0;
+  bottom: 0;
+  left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 0 0 0 10px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-@media (max-width: 600px) {
-  .c-section-gallery__title {
-    font-size: 28px;
+.gallery-item:hover .gallery-item-overlay {
+  opacity: 1;
+}
+
+.gallery-item-title {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.show-more-btn {
+  min-width: 200px;
+  transition: all 0.3s ease;
+}
+
+.rotate-icon {
+  transform: rotate(0);
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 
-  .c-section-gallery__block {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
+  .section-title {
+    font-size: 2rem;
   }
 }
 </style> 

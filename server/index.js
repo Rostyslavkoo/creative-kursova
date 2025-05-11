@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const programsRouter = require('./routes/admin/programs');
 const applicationsRouter = require('./routes/applications');
+const galleryRouter = require('./routes/gallery');
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/admin/programs', programsRouter);
 app.use('/api/applications', applicationsRouter);
+app.use('/api/gallery', galleryRouter);
 
 // Test route
 app.get('/api/test', (req, res) => {
