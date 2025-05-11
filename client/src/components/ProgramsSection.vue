@@ -20,7 +20,7 @@
           <v-card-actions>
             <v-btn
               class="c-gradient-btn c-card-btn"
-              @click="openProgramDetails(program.id)"
+              @click="openProgramsList(program.title,program.type)"
               elevation="0"
             >
               <p class="c-gradient-btn__txt c-noselect">
@@ -47,17 +47,21 @@ const programs = [
   {
     id: 1,
     title: 'Групові заняття',
-    description: 'Для дітей від 3-х років, які хочуть займатися вокалом, виступати на сцені і працювати в команді'
+    description: 'Для дітей від 3-х років, які хочуть займатися вокалом, виступати на сцені і працювати в команді',
+    type: 'group',
   },
   {
     id: 2,
     title: 'Індивідуальні заняття',
-    description: 'Персональні заняття з професійним викладачем. Індивідуальний підхід та програма навчання'
+    description: 'Персональні заняття з професійним викладачем. Індивідуальний підхід та програма навчання',
+     type: 'individual',
   }
 ]
 
-const openProgramDetails = (programId) => {
-  programModal.value.openModal(programId)
+const openProgramsList = (programTitle,programType) => {
+  const mode = programType === 'group' ? 'групові' : 'індивідуальні';
+
+  programModal.value.openModal(mode);
 }
 </script>
 
@@ -104,6 +108,7 @@ const openProgramDetails = (programId) => {
   line-height: 1.6;
   color: #666;
   padding: 0 20px 20px;
+  height: 180px;
 }
 
 .c-card-btn {

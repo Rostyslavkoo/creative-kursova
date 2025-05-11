@@ -84,19 +84,42 @@ router.get('/programs', async (req, res) => {
 // Create new program
 router.post('/programs', upload.single('image'), async (req, res) => {
   try {
-    const { title, description, type, mode } = req.body;
+    const { title, description, type, mode, duration, price, details, showInCarousel } = req.body;
     
-    if (!title || !description || !type || !mode) {
-      return res.status(400).json({ message: 'Title, description, type, and mode are required' });
+    if (!title) {
+      return res.status(400).json({ message: 'Title is required' });
     }
 
-    const program = new Program({
+    if (!mode || !['групові', 'індивідуальні'].includes(mode)) {
+      return res.status(400).json({ message: 'Valid mode (групові/індивідуальні) is required' });
+    }
+
+    let parsedDetails = [];
+    if (details) {
+      try {
+        parsedDetails = typeof details === 'string' ? JSON.parse(details) : details;
+      } catch (e) {
+        return res.status(400).json({ message: 'Invalid details format' });
+      }
+    }
+
+    const data = {
       title,
       description,
       type,
       mode,
-      image: req.file ? req.file.filename : null
+      duration,
+      price,
+      details: parsedDetails,
+      image: req.file ? req.file.filename : null,
+      showInCarousel: showInCarousel === 'true' || showInCarousel === true
+    };
+    // Remove empty optional fields except mode
+    ['type', 'duration', 'price'].forEach(field => {
+      if (!data[field]) delete data[field];
     });
+
+    const program = new Program(data);
 
     await program.save();
     res.status(201).json(program);
@@ -109,33 +132,47 @@ router.post('/programs', upload.single('image'), async (req, res) => {
 // Update program
 router.put('/programs/:id', upload.single('image'), async (req, res) => {
   try {
-    const { title, description, type, mode } = req.body;
-    
-    if (!title || !description || !type || !mode) {
-      return res.status(400).json({ message: 'Title, description, type, and mode are required' });
+    const { title, description, type, mode, duration, price, details, showInCarousel } = req.body;
+    if (!title) {
+      return res.status(400).json({ message: 'Title is required' });
     }
-
+    if (!mode || !['групові', 'індивідуальні'].includes(mode)) {
+      return res.status(400).json({ message: 'Valid mode (групові/індивідуальні) is required' });
+    }
+    let parsedDetails = [];
+    if (details) {
+      try {
+        parsedDetails = typeof details === 'string' ? JSON.parse(details) : details;
+      } catch (e) {
+        return res.status(400).json({ message: 'Invalid details format' });
+      }
+    }
+    console.log('req.body:', req.body);
     const updateData = {
       title,
-      description,
-      type,
-      mode
+      description: description || '',
+      type: type || '',
+      mode,
+      duration: duration || '',
+      price: typeof price === 'string' ? price : '',
+      details: Array.isArray(parsedDetails) ? parsedDetails.filter(d => d.title || d.description) : [],
+      showInCarousel: showInCarousel === 'true' || showInCarousel === true
     };
-
     if (req.file) {
       updateData.image = req.file.filename;
     }
-
+    if (updateData.price === undefined || updateData.price === null) {
+      updateData.price = '';
+    }
+    console.log('updateData.price:', updateData.price);
     const program = await Program.findByIdAndUpdate(
       req.params.id,
-      updateData,
+      { $set: updateData },
       { new: true }
     );
-
     if (!program) {
       return res.status(404).json({ message: 'Program not found' });
     }
-
     res.json(program);
   } catch (error) {
     console.error('Error updating program:', error);

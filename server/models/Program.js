@@ -8,7 +8,7 @@ const programSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true
+    required: false
   },
   image: {
     type: String,
@@ -17,21 +17,47 @@ const programSchema = new mongoose.Schema({
   type: {
     type: String,
     enum: ['онлайн', 'офлайн'],
-    required: true
+    required: false
   },
   mode: {
     type: String,
     enum: ['групові', 'індивідуальні'],
     required: true
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
+  includes: [{
+    title: {
+      type: String,
+      required: false
+    },
+    description: {
+      type: String,
+      required: false
+    }
+  }],
+  advantages: {
+    type: String,
+    required: false
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
+  duration: {
+    type: String,
+    required: false
+  },
+  price: {
+    type: String,
+    required: false
+  },
+  details: [
+    {
+      title: { type: String, required: false },
+      description: { type: String, required: false }
+    }
+  ],
+  showInCarousel: {
+    type: Boolean,
+    default: false
+  },
+}, {
+  timestamps: true
 });
 
 // Update the updatedAt timestamp before saving

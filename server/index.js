@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const path = require('path');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
+const programsRouter = require('./routes/admin/programs');
 
 const app = express();
 
@@ -43,6 +44,7 @@ mongoose.connect(MONGODB_URI, {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/admin/programs', programsRouter);
 
 // Test route
 app.get('/api/test', (req, res) => {
@@ -55,7 +57,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Something went wrong!', error: err.message });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 }); 

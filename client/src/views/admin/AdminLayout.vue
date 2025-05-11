@@ -5,9 +5,12 @@
       <AdminSidebar />
     </v-navigation-drawer>
     <v-main>
-      <v-container fluid class="ma-2 fill-height">
+      <div
+        class="admin-main-content fill-height"
+        :class="{ 'sidebar-collapsed': !drawer }"
+      >
         <router-view />
-      </v-container>
+      </div>
     </v-main>
   </v-app>
 </template>
@@ -24,12 +27,7 @@ const toggleDrawer = () => { drawer.value = !drawer.value }
 <style scoped>
 .v-main {
   background: #f5f5f5;
-  margin-left: 256px; 
   transition: margin-left 0.3s;
-}
-
-.v-main:deep(.v-navigation-drawer--rail) {
-  margin-left: 64px;
 }
 
 :deep(.admin-content-card) {
@@ -53,10 +51,6 @@ const toggleDrawer = () => { drawer.value = !drawer.value }
 }
 
 @media (max-width: 600px) {
-  .v-main {
-    margin-left: 0;
-  }
-
   :deep(.admin-content-card) {
     height: calc(100vh - 56px);
   }
@@ -68,5 +62,27 @@ const toggleDrawer = () => { drawer.value = !drawer.value }
   :deep(.admin-content-card p) {
     padding: 0 16px;
   }
+}
+
+.admin-main-content {
+  position: relative;
+  width: calc(100vw - 256px);
+  max-width: calc(100vw - 256px);
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  left: 256px;
+  transition: left 0.3s, width 0.3s, max-width 0.3s;
+  padding: 10px;
+}
+
+.admin-main-content.sidebar-collapsed {
+  width: 100vw;
+  max-width: 100vw;
+  left: 0;
 }
 </style> 
