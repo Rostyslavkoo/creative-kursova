@@ -147,6 +147,8 @@ const formTitle = computed(() => {
 
 const { notify } = useSnackbar()
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 const getErrorMessage = (error) => {
   if (error.response?.data?.error) {
     return error.response.data.error
@@ -160,7 +162,7 @@ const getErrorMessage = (error) => {
 const fetchPrograms = async () => {
   loading.value = true
   try {
-    const response = await axios.get('http://localhost:3000/api/admin/programs')
+    const response = await axios.get(`${API_BASE_URL}/api/admin/programs`)
     programs.value = response.data
   } catch (error) {
     console.error('Error fetching programs:', error)
@@ -179,7 +181,7 @@ const editItem = (item) => {
 const deleteItem = async (item) => {
   if (confirm('Ви впевнені, що хочете видалити цю програму?')) {
     try {
-      await axios.delete(`http://localhost:3000/api/admin/programs/${item._id}`)
+      await axios.delete(`${API_BASE_URL}/api/admin/programs/${item._id}`)
       programs.value = programs.value.filter(p => p._id !== item._id)
       notify('Програму успішно видалено', 'success')
     } catch (error) {
@@ -212,7 +214,7 @@ const save = async () => {
     if (editedIndex.value > -1) {
       // Update existing program
       await axios.put(
-        `http://localhost:3000/api/admin/programs/${editedItem.value._id}`,
+        `${API_BASE_URL}/api/admin/programs/${editedItem.value._id}`,
         formData,
         {
           headers: {
@@ -225,7 +227,7 @@ const save = async () => {
     } else {
       // Create new program
       const response = await axios.post(
-        'http://localhost:3000/api/admin/programs',
+        `${API_BASE_URL}/api/admin/programs`,
         formData,
         {
           headers: {

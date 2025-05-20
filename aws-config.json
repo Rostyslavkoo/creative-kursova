@@ -1,0 +1,23 @@
+{
+  "backend": {
+    "service": "elastic-beanstalk",
+    "region": "eu-central-1",
+    "application": "creative-kursova-backend",
+    "environment": "production",
+    "instance_type": "t2.micro",
+    "min_instances": 1,
+    "max_instances": 2
+  },
+  "frontend": {
+    "service": "s3",
+    "region": "eu-central-1",
+    "bucket": "creative-kursova-frontend",
+    "cloudfront": {
+      "distribution": "creative-kursova-distribution"
+    }
+  },
+  "domain": {
+    "name": "your-domain.com",
+    "certificate": "arn:aws:acm:eu-central-1:YOUR_ACCOUNT_ID:certificate/YOUR_CERTIFICATE_ID"
+  }
+} 

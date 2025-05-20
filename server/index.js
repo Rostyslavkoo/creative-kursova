@@ -9,6 +9,7 @@ const adminRoutes = require('./routes/admin');
 const programsRouter = require('./routes/admin/programs');
 const applicationsRouter = require('./routes/applications');
 const galleryRouter = require('./routes/gallery');
+const publicRoutes = require('./routes/public');
 
 const app = express();
 
@@ -49,6 +50,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/admin/programs', programsRouter);
 app.use('/api/applications', applicationsRouter);
 app.use('/api/gallery', galleryRouter);
+app.use('/api', publicRoutes);
 
 // Test route
 app.get('/api/test', (req, res) => {

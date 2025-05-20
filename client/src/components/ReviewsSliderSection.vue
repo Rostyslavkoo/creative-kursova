@@ -50,7 +50,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/autoplay'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
-const API_URL = `${API_BASE_URL}/api/admin/reviews`
+const API_URL = `${API_BASE_URL}/api/reviews`
 
 const reviews = ref([])
 

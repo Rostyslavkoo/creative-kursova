@@ -62,7 +62,7 @@ import axios from 'axios'
 import ProgramDetailView from './ProgramDetailView.vue'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
-const API_URL = `${API_BASE_URL}/api/admin/programs`
+const API_URL = `${API_BASE_URL}/api/programs`
 
 const programs = ref([])
 const currentIndex = ref(0)
